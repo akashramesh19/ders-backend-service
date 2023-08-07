@@ -19,7 +19,6 @@ public class DersServiceImpl implements DersService{
             cleanedWords = searchWords;
             for(String word:wordList){
                 cleanedWords = cleanedWords.replace(word," ");
-                System.out.println(word);
             }
             return cleanedWords;
         }catch(RuntimeException runtimeException){

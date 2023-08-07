@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.TreeMap;
+
 @RestController
 @RequestMapping("/ders")
 public class DersController {
@@ -15,11 +17,12 @@ public class DersController {
     DersServiceImpl dersService;
 
     @PostMapping("/search")
-    public ResponseEntity<String> searchTokens(@RequestBody DersInputDto dersInputDto){
+    public ResponseEntity<TreeMap<String,String>> searchTokens(@RequestBody DersInputDto dersInputDto){
         try{
-            return new ResponseEntity<>(dersService.searchResume(dersInputDto.getSearchWords()),HttpStatus.OK);
+            dersService.searchResume(dersInputDto.getSearchWords());
+            return new ResponseEntity<>(new TreeMap<>(),HttpStatus.OK);
         }catch (RuntimeException runtimeException){
-            return new ResponseEntity<>("Runtime Exception has occured",HttpStatus.BAD_GATEWAY);
+            return new ResponseEntity<>(new TreeMap<>(),HttpStatus.BAD_GATEWAY);
         }
     }
 

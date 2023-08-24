@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.TreeMap;
 
 @RestController
@@ -17,13 +18,19 @@ public class DersController {
     DersServiceImpl dersService;
 
     @PostMapping("/search")
-    public ResponseEntity<TreeMap<String,String>> searchTokens(@RequestBody DersInputDto dersInputDto){
+    public ResponseEntity<Map<String,Double>> searchTokens(@RequestBody DersInputDto dersInputDto){
         try{
-            dersService.searchResume(dersInputDto.getSearchWords());
-            return new ResponseEntity<>(new TreeMap<>(),HttpStatus.OK);
+            return new ResponseEntity<>(dersService.searchResume(dersInputDto.getSearchWords()),HttpStatus.OK);
         }catch (RuntimeException runtimeException){
             return new ResponseEntity<>(new TreeMap<>(),HttpStatus.BAD_GATEWAY);
         }
+    }
+
+    @GetMapping("/index")
+    public ResponseEntity<String>indexFile()
+    {
+        String path = "C:\\Users\\Shrey\\Desktop\\TestPDFs";
+        return new ResponseEntity<>(dersService.indexFiles(path), HttpStatus.OK);
     }
 
 }

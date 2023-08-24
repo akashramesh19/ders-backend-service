@@ -1,5 +1,9 @@
 package com.ders.backend.services;
 
+import java.util.Map;
+
 public interface DersService {
-    String searchResume(String searchWords);
+    Map<String, Double> searchResume(String searchWords);
+
+    String indexFiles(String path);
 }

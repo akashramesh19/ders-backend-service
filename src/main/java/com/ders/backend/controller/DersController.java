@@ -20,16 +20,17 @@ public class DersController {
     @PostMapping("/search")
     public ResponseEntity<Map<String,Double>> searchTokens(@RequestBody DersInputDto dersInputDto){
         try{
+
             return new ResponseEntity<>(dersService.searchResume(dersInputDto.getSearchWords()),HttpStatus.OK);
         }catch (RuntimeException runtimeException){
             return new ResponseEntity<>(new TreeMap<>(),HttpStatus.BAD_GATEWAY);
         }
     }
 
-    @GetMapping("/index")
-    public ResponseEntity<String>indexFile()
+    @PostMapping("/index")
+    public ResponseEntity<String>indexFile(@RequestBody DersInputDto dersInputDto)
     {
-        String path = "C:\\Users\\Shrey\\Desktop\\TestPDFs";
+        String path =dersInputDto.getPath();
         return new ResponseEntity<>(dersService.indexFiles(path), HttpStatus.OK);
     }
 

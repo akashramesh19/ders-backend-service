@@ -8,8 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DersInputDto {
     String searchWords;
+    String path;
 
     public String getSearchWords() {
         return searchWords;
     }
+    public String getPath(){return path;}
 }

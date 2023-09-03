@@ -1,6 +1,6 @@
 const button = document.querySelector('input[type="button"]');
 const path = document.getElementById("path");
-const response = document.getElementById("response");
+const response = document.getElementById("response"); 
 button.addEventListener("click", indexFiles);
 
 
@@ -49,17 +49,21 @@ const callSearch = async() =>
 
     });
 
-    if(searchRes.status===200)
+    if(searchRes.ok)
     {
         arrayResp = await searchRes.json();
-        response.innerHTML = JSON.stringify(arrayResp).replace(/[,]+/, "<br>"); 
-        //const mapFormt = new Map(Object.entries(JSON.parse(arrayResp))) 
+        response.innerHTML = "Please See the result below <br>" ;
+        for(const[key,value] of Object.entries(arrayResp))
+        {
+            console.log(`${key}, ${value}`); 
+        }
+        createTable(arrayResp); 
         console.log(arrayResp);
     }
     else{
         response.innerText = "Error"
         console.log(searchRes.status);
-    }
+    } 
 }
 
 function indexFiles()
@@ -72,4 +76,33 @@ function indexFiles()
     {callFileIndexer();}
     else
     {callSearch();}
+}
+
+
+function createTable(respo)
+{
+    const table = document.createElement("table");
+    table.setAttribute("class", "border_class");
+    const headerRow = document.createElement("tr");
+    const headerCell1 = document.createElement("th");
+    headerCell1.textContent = "File Name";
+    const headerCell2 = document.createElement("th");
+    headerCell2.textContent = "Score";
+    headerRow.appendChild(headerCell1);
+    headerRow.appendChild(headerCell2);
+    table.appendChild(headerRow);
+
+    for (const [key, value] of Object.entries(respo)) {
+        // Create a row for each key-value pair
+        const row = document.createElement("tr");
+        const cell1 = document.createElement("td");
+        cell1.innerHTML = "<a href ="+key+">"+key+"</a>"; 
+        const cell2 = document.createElement("td");
+        cell2.textContent = value;
+        row.appendChild(cell1);
+        row.appendChild(cell2);
+        table.appendChild(row);
+      } 
+
+      document.body.appendChild(table);
 }

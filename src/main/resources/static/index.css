@@ -1,0 +1,8 @@
+.border_class {
+    border: 2px solid greenyellow;
+  }
+
+table, th, td {
+    border: 2px solid black;
+    border-collapse: collapse;
+  }

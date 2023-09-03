@@ -17,6 +17,12 @@ public class DersController {
     @Autowired
     DersServiceImpl dersService;
 
+    @GetMapping("/")
+    public ResponseEntity<String> health()
+    {
+        return new ResponseEntity<>("Hello World", HttpStatus.OK);
+    }
+
     @PostMapping("/search")
     public ResponseEntity<Map<String,Double>> searchTokens(@RequestBody DersInputDto dersInputDto){
         try{

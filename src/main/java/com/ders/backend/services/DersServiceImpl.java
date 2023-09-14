@@ -21,6 +21,7 @@ public class DersServiceImpl implements DersService{
         for(String word:wordList){
             cleanedWords = cleanedWords.replace(word," ");
         }
+        System.out.println(cleanedWords);
         return jesi.searchJesi(cleanedWords);
     }
 
